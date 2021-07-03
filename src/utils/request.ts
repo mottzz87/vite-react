@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-04 00:26:43
- * @LastEditTime: 2021-07-04 04:11:01
+ * @LastEditTime: 2021-07-04 06:23:52
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\utils\request.ts
@@ -50,6 +50,7 @@ export const request = ({
 	method = 'POST',
 }: IRequest): Promise<IResponse> => {
 	return new Promise((resolve, reject) => {
+		// eslint-disable-next-line no-param-reassign
 		url = params
 			? `${envConf.apiBaseUrl + url}/?${stringify(params)}`
 			: envConf.apiBaseUrl + url;
