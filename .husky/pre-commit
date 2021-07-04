@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run eslint && npx prettier .prettierrc.js --write
+npm run eslint && npx prettier .prettierrc.ts --write
+npm run eslint && npx prettier .prettierrc.js --write
+npm run eslint —fix && npx prettier .prettierrc.js --write
+npm run eslint —fix && npx prettier .prettierrc.js --write
+npm run eslint —fix && npx prettier .prettierrc.js --write
+npm run eslint —fix && npx prettier .prettierrc.js --write
+npm run eslint —fix && npx prettier .prettierrc.js --write
