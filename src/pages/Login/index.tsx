@@ -1,10 +1,10 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-04 17:11:57
- * @LastEditTime: 2021-07-04 23:56:21
+ * @LastEditTime: 2021-07-05 17:52:48
  * @LastEditors: Vane
  * @Description:
- * @FilePath: \vite-react\src\pages\login\index.tsx
+ * @FilePath: \vite-react\src\pages\Login\index.tsx
  */
 import React, { FC, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import project from '~/package.json';
 import style from './index.module.less';
 import LoginImg from '@/assets/imgs/login/login.png';
-import { getItem, removeItem, setItem } from '@/utils/localStorage';
+import { Local } from '@/utils/storage';
 import { ACCOUNT_INFO } from '~/config/constance';
 import { getFirstRoute } from '@/utils/common';
 import routeItems from '@/routes';
@@ -31,9 +31,9 @@ const Login: FC<LoginProps> = () => {
     console.log(values);
     const { username, password } = values;
     if (values.remember) {
-      setItem(ACCOUNT_INFO, { username });
+      Local.set(ACCOUNT_INFO, { username });
     } else {
-      removeItem(ACCOUNT_INFO);
+      Local.remove(ACCOUNT_INFO);
     }
     const homePath = getFirstRoute(routeItems).path;
     history.push(homePath);
@@ -42,7 +42,7 @@ const Login: FC<LoginProps> = () => {
   const onFinishFailed = (errorInfo: unknown) => {
     console.log('Failed:', errorInfo);
   };
-  const { username, password } = getItem(ACCOUNT_INFO);
+  const { username, password } = Local.get(ACCOUNT_INFO);
   return (
     <div className={style.login}>
       <div className={style.loginWrapper}>

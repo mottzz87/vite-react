@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-03 22:03:15
- * @LastEditTime: 2021-07-04 23:22:42
+ * @LastEditTime: 2021-07-06 15:59:38
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\vite.config.ts
@@ -30,6 +30,12 @@ export default defineConfig({
         target: 'http://47.99.134.126:28019/api/v1',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
+      },
+      '/gitee': {
+        target: 'https://gitee.com',
+        ws: true,
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/gitee/, '')
       }
     }
   },
