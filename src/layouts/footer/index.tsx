@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-06 10:20:16
- * @LastEditTime: 2021-07-06 14:39:28
+ * @LastEditTime: 2021-07-09 03:16:37
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\layouts\footer\index.tsx
@@ -13,7 +13,7 @@ import classNames from 'classnames';
 
 const { layoutFooterWarp, layoutFooter } = styles;
 
-function Footer(): JSX.Element {
+const Footer = (): JSX.Element => {
   const [delayFooter, setDelayFooter] = useState(false);
   useEffect(() => {
     setTimeout(() => {
@@ -33,5 +33,5 @@ function Footer(): JSX.Element {
       ) : null}
     </>
   );
-}
+};
 export default Footer;

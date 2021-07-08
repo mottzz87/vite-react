@@ -6,11 +6,7 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser", // 定义ESLint的解析器
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
   "plugins": ["@typescript-eslint"], // 定义了该eslint文件所依赖的插件
   "settings": {
     // 自动发现React的版本，从而进行规范react代码
@@ -28,18 +24,18 @@
     }
   },
   "rules": {
-    // 可以定义react 编码规则
-    "semi": ["error", "always"],
-    "eqeqeq": "off",
-    "linebreak-style": ["error", "unix"],
-    "no-useless-call": "off",
-    "space-before-function-paren": [
-      "error",
-      {
-        "anonymous": "always",
-        "named": "never",
-        "asyncArrow": "always"
-      }
-    ]
+    // // 可以定义react 编码规则
+    // "semi": ["error", "always"],
+    // "eqeqeq": "off",
+    // "linebreak-style": ["error", "unix"],
+    // "no-useless-call": "off",
+    // "space-before-function-paren": [
+    //   "error",
+    //   {
+    //     "anonymous": "always",
+    //     "named": "never",
+    //     "asyncArrow": "always"
+    //   }
+    // ]
   }
 }

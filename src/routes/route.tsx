@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-05 00:51:49
- * @LastEditTime: 2021-07-06 15:55:29
+ * @LastEditTime: 2021-07-09 02:58:26
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\routes\route.tsx
@@ -68,7 +68,28 @@ export const RouterView = (): JSX.Element => (
     </Switch>
   </Router>
 );
-
+const renderRoutes = () => {
+  const routes: Array<React.ReactNode> = [];
+  const routeMap = arr => {
+    arr.forEach(route => {
+      if (!route.meta.hidden) {
+        routes.push(
+          <CacheRoute
+            when={() => !!route.meta.isCache}
+            cacheKey={route.path}
+            key={route.path}
+            exact={route.exact}
+            path={route.path}
+            component={route.component}
+          />
+        );
+      }
+      if (route.routes && route.routes.length) routeMap(route.routes);
+    });
+  };
+  routeMap(routeItems);
+  return routes;
+};
 export function App(): JSX.Element {
   return (
     <Router>
@@ -76,7 +97,7 @@ export function App(): JSX.Element {
         <Route exact path={LOGIN_PATH} component={Login} />
         <Route exact path="/404" component={Page404} />
         <Route path="/">
-          <Layout />
+          <Layout>123</Layout>
         </Route>
       </CacheSwitch>
     </Router>

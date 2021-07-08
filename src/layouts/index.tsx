@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /*
  * @Author: Vane
  * @Date: 2021-07-04 04:58:02
- * @LastEditTime: 2021-07-06 16:17:42
+ * @LastEditTime: 2021-07-09 03:14:43
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\layouts\index.tsx
@@ -20,8 +21,10 @@ import {
   UploadOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons';
-
-const { Header, Content, Footer, Sider } = Layout;
+import RouteItems from '@/routes/routeItems';
+import Footer from '@/layouts/footer';
+const { Header, Content } = Layout;
+import Aside from '@/layouts/components/Aside';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from '@/pages/Index';
@@ -29,52 +32,39 @@ import About from '@/pages/About';
 import routes from '@/routes';
 // import Footer from './footer';
 import './index.less';
-
-export default function App(): JSX.Element {
+export interface aliveControlInterface {
+  dropByCacheKey: (cacheKey: string) => void;
+  refreshByCacheKey: (cacheKey: string) => void;
+  getCachingKeys: () => Array<string>;
+  clearCache: () => void;
+}
+// interface LayoutProps {
+//   logo?: any;
+//   aliveControl: aliveControlInterface;
+//   routeItems: Array<RouteItem>;
+//   history: History;
+//   username: string;
+//   onClickDrop: () => void;
+// }
+const App = (props: {
+  children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined;
+}) => {
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
+    console.log(collapsed);
+
     setCollapsed(!collapsed);
   };
   return (
     <Layout className="layout">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
-          <img src="/src/assets/favicon.svg" alt="" />
-        </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
-          <Menu.Item key="4" icon={<BarChartOutlined />}>
-            nav 4
-          </Menu.Item>
-          <Menu.Item key="5" icon={<CloudOutlined />}>
-            nav 5
-          </Menu.Item>
-          <Menu.Item key="6" icon={<AppstoreOutlined />}>
-            nav 6
-          </Menu.Item>
-          <Menu.Item key="7" icon={<TeamOutlined />}>
-            nav 7
-          </Menu.Item>
-          <Menu.Item key="8" icon={<ShopOutlined />}>
-            nav 8
-          </Menu.Item>
-        </Menu>
-      </Sider>
+      <Aside collapsed={collapsed} routeItems={RouteItems} />
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
           {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
             onClick: toggle
           })}
-          <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb style={{ margin: '16px 0', display: 'inline' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
@@ -88,44 +78,11 @@ export default function App(): JSX.Element {
             minHeight: 280
           }}
         >
-          Content
+          {props.children}
         </Content>
         <Footer>Ant Design ©2018 Created by Ant UED</Footer>
       </Layout>
-      {/* <Layout className="site-layout" style={{ marginLeft: 200 }}>
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: toggle
-          })}
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-        </Header>
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
-            ...
-            <br />
-            Really
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            long
-          </div>
-        </Content>
-        <Footer>Ant Design ©2018 Created by Ant UED</Footer>
-      </Layout> */}
     </Layout>
   );
-}
+};
+export default App;

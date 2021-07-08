@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-04 15:59:06
- * @LastEditTime: 2021-07-04 17:04:21
+ * @LastEditTime: 2021-07-09 01:36:33
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\.prettierrc.js
@@ -13,7 +13,7 @@ module.exports = {
   tabWidth: 2, // 每个tab相当于多少个空格（默认2）
   useTabs: false, // 是否使用tab进行缩进（默认false）
   singleQuote: true, // 使用单引号（默认false）
-  endOfLine: 'lf', // 换行符使用 lf 结尾是 可选值"<auto|lf|crlf|cr>"
+  endOfLine: 'crlf', // 换行符使用 lf 结尾是 可选值"<auto|lf|crlf|cr>"
   semi: true, // 声明结尾使用分号(默认true)
   trailingComma: 'none', // 多行使用拖尾逗号（默认none）
   bracketSpacing: true, // 对象字面量的大括号间使用空格（默认true）

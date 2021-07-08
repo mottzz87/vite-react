@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-03 22:03:15
- * @LastEditTime: 2021-07-06 15:59:38
+ * @LastEditTime: 2021-07-09 01:54:28
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\vite.config.ts
@@ -18,8 +18,6 @@ const themeVariables = lessToJS(fs.readFileSync(path.resolve(__dirname, './src/s
 
 const env = process.argv[process.argv.length - 1];
 const base = config[env];
-
-console.log(111111, process.cwd());
 export default defineConfig({
   base: base.cdn,
   server: {

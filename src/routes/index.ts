@@ -2,10 +2,10 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-03 22:43:24
- * @LastEditTime: 2021-07-06 09:37:49
+ * @LastEditTime: 2021-07-09 00:56:11
  * @LastEditors: Vane
  * @Description:
- * @FilePath: \vite-react\src\routes\index.ts
+ * @FilePath: \vite-react\_src\routes\index.ts
  */
 
 import NProgress from 'nprogress'; // 引入nprogress插件
@@ -90,7 +90,7 @@ const staticRoutes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/pages/Login'),
+    component: () => import('@/layout/components/Login'),
     meta: {
       title: '登陆'
     }
@@ -98,7 +98,7 @@ const staticRoutes = [
   {
     path: '/404',
     name: 'notFound',
-    component: () => import('@/pages/error/404'),
+    component: () => import('@/pages/error/page404'),
     meta: {
       title: '找不到此页面'
     }
