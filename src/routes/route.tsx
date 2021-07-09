@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-05 00:51:49
- * @LastEditTime: 2021-07-09 02:58:26
+ * @LastEditTime: 2021-07-09 14:44:52
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\routes\route.tsx
@@ -18,7 +18,7 @@ import CacheRoute, {
 import { isEmpty } from '@/utils';
 import routeItems from '@/routes';
 import { Local } from '@/utils/storage';
-import { ACCOUNT_INFO, LOGIN_PATH } from '~/config/constance';
+import { ACCOUNT_INFO, LOGIN_PATH } from '#/config/constance';
 import { getFirstRoute } from '@/utils/common';
 import Login from '@/pages/Login';
 import Page401 from '@/pages/error/401';
@@ -68,28 +68,7 @@ export const RouterView = (): JSX.Element => (
     </Switch>
   </Router>
 );
-const renderRoutes = () => {
-  const routes: Array<React.ReactNode> = [];
-  const routeMap = arr => {
-    arr.forEach(route => {
-      if (!route.meta.hidden) {
-        routes.push(
-          <CacheRoute
-            when={() => !!route.meta.isCache}
-            cacheKey={route.path}
-            key={route.path}
-            exact={route.exact}
-            path={route.path}
-            component={route.component}
-          />
-        );
-      }
-      if (route.routes && route.routes.length) routeMap(route.routes);
-    });
-  };
-  routeMap(routeItems);
-  return routes;
-};
+
 export function App(): JSX.Element {
   return (
     <Router>
@@ -97,7 +76,7 @@ export function App(): JSX.Element {
         <Route exact path={LOGIN_PATH} component={Login} />
         <Route exact path="/404" component={Page404} />
         <Route path="/">
-          <Layout>123</Layout>
+          <Layout />
         </Route>
       </CacheSwitch>
     </Router>

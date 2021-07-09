@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-04 00:26:43
- * @LastEditTime: 2021-07-05 16:22:57
+ * @LastEditTime: 2021-07-09 10:27:53
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\utils\request.ts
@@ -11,7 +11,7 @@ import axios from 'axios';
 // import { message, Spin } from 'antd';
 // import { stringify } from 'qs';
 // import { useHistory } from 'react-router-dom';
-import config from '~/config';
+import config from '#/config';
 import { Session } from '@/utils/storage';
 // import router from '@/routes/index';
 

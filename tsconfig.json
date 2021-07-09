@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "~/*": ["./*"]
+      "#/*": ["./*"]
     },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -21,6 +21,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["./src", "./src/types/*.d.ts"],
+  "include": ["./src", "./src/types/*.d.ts", "config/defaultSettings.ts"],
   "exclude": ["node_modules"]
 }

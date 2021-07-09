@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-03 22:03:15
- * @LastEditTime: 2021-07-09 01:54:28
+ * @LastEditTime: 2021-07-09 11:19:28
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\vite.config.ts
@@ -61,9 +61,10 @@ export default defineConfig({
     }
   },
   resolve: {
-    alias: {
-      '~': path.resolve(__dirname, './'), // 根路径
-      '@': path.resolve(__dirname, 'src') // src 路径
-    }
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
+      { find: '#', replacement: path.resolve(__dirname, './') },
+      { find: /^~/, replacement: '' }
+    ]
   }
 });

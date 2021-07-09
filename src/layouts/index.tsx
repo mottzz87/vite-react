@@ -1,88 +1,117 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /*
  * @Author: Vane
- * @Date: 2021-07-04 04:58:02
- * @LastEditTime: 2021-07-09 03:14:43
+ * @Date: 2021-07-09 09:50:16
+ * @LastEditTime: 2021-07-09 16:00:24
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\layouts\index.tsx
  */
+
+/**
+ * Ant Design Pro v4 use `@ant-design/pro-layout` to handle Layout.
+ *
+ * @see You can view component api by: https://github.com/ant-design/ant-design-pro-layout
+ */
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined
-} from '@ant-design/icons';
-import RouteItems from '@/routes/routeItems';
-import Footer from '@/layouts/footer';
-const { Header, Content } = Layout;
-import Aside from '@/layouts/components/Aside';
+import type { BasicLayoutProps as ProLayoutProps } from '@ant-design/pro-layout';
+import ProLayout, { PageContainer, SettingDrawer } from '@ant-design/pro-layout';
+// import history from '@/utils/history';
+import { useHistory, Link, Route } from 'react-router-dom';
+import { HomeOutlined } from '@ant-design/icons';
+//  import { history, Link, useLocation } from '@vitjs/runtime';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Home from '@/pages/Index';
-import About from '@/pages/About';
-import routes from '@/routes';
-// import Footer from './footer';
-import './index.less';
-export interface aliveControlInterface {
-  dropByCacheKey: (cacheKey: string) => void;
-  refreshByCacheKey: (cacheKey: string) => void;
-  getCachingKeys: () => Array<string>;
-  clearCache: () => void;
-}
-// interface LayoutProps {
-//   logo?: any;
-//   aliveControl: aliveControlInterface;
-//   routeItems: Array<RouteItem>;
-//   history: History;
-//   username: string;
-//   onClickDrop: () => void;
-// }
-const App = (props: {
-  children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined;
-}) => {
-  const [collapsed, setCollapsed] = useState(false);
-  const toggle = () => {
-    console.log(collapsed);
+import RightContent from './containers/GlobalHeader/RightContent';
+import GlobalFooter from './containers/GlobalFooter';
+import defaultSettings from '#/config/defaultSettings';
+import defaultProps from './__defaultProps';
 
-    setCollapsed(!collapsed);
-  };
+const loginPath = '/login';
+const content = '1234';
+
+export type BasicLayoutProps = {
+  route: ProLayoutProps['route'];
+} & ProLayoutProps;
+
+const BasicLayout: React.FC<BasicLayoutProps> = props => {
+  //  const location = useLocation();
+  const history = useHistory();
+  const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({ fixSiderbar: true });
+  const [pathname, setPathname] = useState('/welcome');
   return (
-    <Layout className="layout">
-      <Aside collapsed={collapsed} routeItems={RouteItems} />
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: toggle
-          })}
-          <Breadcrumb style={{ margin: '16px 0', display: 'inline' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-        </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280
-          }}
+    <div id="test-pro-layout">
+      <ProLayout
+        logo="https://github.com/vitjs/vit/raw/master/icons/logo.svg"
+        {...props}
+        {...defaultProps}
+        onPageChange={() => {
+          console.log(333333);
+          //  // 如果没有登录，重定向到 login
+          //  if (localStorage.getItem('status') !== 'ok' && history.location.pathname !== loginPath) {
+          //    history.push(loginPath);
+          //  }
+        }}
+        onMenuHeaderClick={() => console.log(123)}
+        menuItemRender={(menuItemProps, defaultDom) => {
+          console.log(2222, menuItemProps, defaultDom);
+          if (menuItemProps.isUrl || !menuItemProps.path || history.location.pathname === menuItemProps.path) {
+            return defaultDom;
+          }
+          setPathname(menuItemProps.path || '/welcome');
+          return <Link to={menuItemProps.path}>{defaultDom}</Link>;
+        }}
+        rightContentRender={() => <RightContent />}
+        breadcrumbRender={(routers = []) => {
+          console.log(555, routers);
+          return [
+            {
+              path: '/',
+              breadcrumbName: (<HomeOutlined />) as any
+            },
+            ...routers
+          ];
+        }}
+        // itemRender={(route, params, routes, paths) => {
+        //   console.log(1111, routes, route);
+        //   const first = routes.indexOf(route) === 0;
+        //   return first ? <Link to={paths.join('/')}>{route.breadcrumbName}</Link> : <span>{route.breadcrumbName}</span>;
+        // }}
+        footerRender={() => <GlobalFooter />}
+        {...defaultSettings}
+        {...settings}
+      >
+        <PageContainer
+          content={content}
+          tabList={[
+            {
+              tab: '基本信息',
+              key: 'base'
+            },
+            {
+              tab: '详细信息',
+              key: 'info'
+            }
+          ]}
         >
-          {props.children}
-        </Content>
-        <Footer>Ant Design ©2018 Created by Ant UED</Footer>
-      </Layout>
-    </Layout>
+          <div
+            style={{
+              height: '120vh'
+            }}
+          >
+            水电费地方
+          </div>
+        </PageContainer>
+      </ProLayout>
+      <SettingDrawer
+        pathname={pathname}
+        getContainer={() => document.getElementById('test-pro-layout')}
+        settings={settings}
+        onSettingChange={changeSetting => {
+          setSetting(changeSetting);
+        }}
+        disableUrlParams
+      />
+    </div>
   );
 };
-export default App;
+
+export default BasicLayout;
