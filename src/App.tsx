@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-07-03 22:03:15
- * @LastEditTime: 2021-07-13 20:22:18
+ * @LastEditTime: 2021-07-29 13:59:30
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \vite-react\src\App.tsx
@@ -11,10 +11,10 @@ import { ConfigProvider } from 'antd';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { App } from '@/routes/route';
-import store from '#/src/store';
-// import '@/concent';
+
 import { HashRouter as Router } from 'react-router-dom';
 import setIntroduction from '@/utils/setIconfont';
+import store from '@/store';
 import '@/styles/index.less';
 import 'antd/dist/antd.less';
 
